@@ -38,7 +38,7 @@ public class RxAlertDialogSupportTest
                 .positiveButton("OK")
                 .negativeButton("Cancel")
                 .neutralButton("Later")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -70,7 +70,7 @@ public class RxAlertDialogSupportTest
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -100,7 +100,7 @@ public class RxAlertDialogSupportTest
         Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
                 .title("Attention")
                 .negativeButton("Cancel") // Notice there is no positive button.
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -131,7 +131,7 @@ public class RxAlertDialogSupportTest
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .doOnUnsubscribe(new Action0()
                 {
                     @Override public void call()
@@ -164,7 +164,7 @@ public class RxAlertDialogSupportTest
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {

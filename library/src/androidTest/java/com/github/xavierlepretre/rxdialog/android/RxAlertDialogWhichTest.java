@@ -16,13 +16,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import rx.Subscription;
-import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.subjects.ReplaySubject;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -56,7 +54,7 @@ public class RxAlertDialogWhichTest
                 .positiveButton("PosButton")
                 .negativeButton("NegButton")
                 .neutralButton("NeuButton")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {

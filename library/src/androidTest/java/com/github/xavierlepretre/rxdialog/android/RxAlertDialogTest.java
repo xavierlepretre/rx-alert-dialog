@@ -1,14 +1,10 @@
 package com.github.xavierlepretre.rxdialog.android;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.github.xavierlepretre.TestHelper;
-import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Rule;
@@ -18,7 +14,6 @@ import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
-import rx.subjects.ReplaySubject;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -45,7 +40,7 @@ public class RxAlertDialogTest
                 .positiveButton("OK")
                 .negativeButton("Cancel")
                 .neutralButton("Later")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -79,7 +74,7 @@ public class RxAlertDialogTest
                 .message("Message1")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -111,7 +106,7 @@ public class RxAlertDialogTest
                 .title("Attention")
                 .message("Message1")
                 .negativeButton("Cancel") // Notice there is no positive button.
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {
@@ -143,7 +138,7 @@ public class RxAlertDialogTest
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .doOnUnsubscribe(new Action0()
                 {
                     @Override public void call()
@@ -176,7 +171,7 @@ public class RxAlertDialogTest
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {

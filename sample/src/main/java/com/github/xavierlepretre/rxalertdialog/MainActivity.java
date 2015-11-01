@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 .positiveButton(buttonPositive.getText().toString())
                 .negativeButton(buttonNegative.getText().toString())
                 .neutralButton(buttonNeutral.getText().toString())
-                .build()
+                .show()
                 .subscribe(dialogEventObserver));
     }
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity
                 .positiveButton(buttonPositive.getText().toString())
                 .negativeButton(buttonNegative.getText().toString())
                 .neutralButton(buttonNeutral.getText().toString())
-                .build()
+                .show()
                 .subscribe(dialogEventObserver));
     }
 

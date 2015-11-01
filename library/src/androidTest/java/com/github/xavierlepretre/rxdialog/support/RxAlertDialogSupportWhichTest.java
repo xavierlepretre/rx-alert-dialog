@@ -54,7 +54,7 @@ public class RxAlertDialogSupportWhichTest
                 .positiveButton("PosButton")
                 .negativeButton("NegButton")
                 .neutralButton("NeuButton")
-                .build()
+                .show()
                 .subscribe(
                         new Action1<AlertDialogEvent>()
                         {

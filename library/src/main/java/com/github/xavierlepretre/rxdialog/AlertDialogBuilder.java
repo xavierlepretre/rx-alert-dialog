@@ -112,5 +112,5 @@ abstract public class AlertDialogBuilder<DialogType, BuilderType extends AlertDi
 
     @NonNull abstract protected BuilderType self();
 
-    @NonNull abstract public Observable<AlertDialogEvent> build();
+    @NonNull abstract public Observable<AlertDialogEvent> show();
 }

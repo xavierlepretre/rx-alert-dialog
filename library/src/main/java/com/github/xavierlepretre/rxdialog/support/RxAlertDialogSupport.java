@@ -32,7 +32,7 @@ public class RxAlertDialogSupport
             return this;
         }
 
-        @NonNull public Observable<AlertDialogEvent> build()
+        @NonNull public Observable<AlertDialogEvent> show()
         {
             return Observable.create(
                     new Observable.OnSubscribe<AlertDialogEvent>()
