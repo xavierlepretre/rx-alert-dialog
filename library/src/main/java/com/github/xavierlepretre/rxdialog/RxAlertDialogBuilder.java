@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import rx.Observable;
 
-abstract public class RxAlertDialogBuilder<DialogType, BuilderType extends RxAlertDialogBuilder<DialogType, BuilderType>>
+abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuilder<BuilderType>>
 {
     @NonNull private final Context context;
     @Nullable private String title;

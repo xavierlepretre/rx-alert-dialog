@@ -18,7 +18,7 @@ public class RxAlertDialogSupport
         throw new IllegalStateException("No instance");
     }
 
-    public static class Builder extends RxAlertDialogBuilder<AlertDialog, Builder>
+    public static class Builder extends RxAlertDialogBuilder<Builder>
     {
         public Builder(@NonNull Context context)
         {
