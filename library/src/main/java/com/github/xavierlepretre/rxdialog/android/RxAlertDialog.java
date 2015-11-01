@@ -42,14 +42,8 @@ public class RxAlertDialog
                         public void call(final Subscriber<? super AlertDialogEvent> subscriber)
                         {
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            if (getTitle() != null)
-                            {
-                                builder.setTitle(getTitle());
-                            }
-                            if (getMessage() != null)
-                            {
-                                builder.setMessage(getMessage());
-                            }
+                            builder.setTitle(getTitle());
+                            builder.setMessage(getMessage());
                             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
                             {
                                 @Override public void onClick(DialogInterface dialog, int which)
@@ -58,18 +52,9 @@ public class RxAlertDialog
                                     subscriber.onCompleted();
                                 }
                             };
-                            if (getPositiveButton() != null)
-                            {
-                                builder.setPositiveButton(getPositiveButton(), listener);
-                            }
-                            if (getNegativeButton() != null)
-                            {
-                                builder.setNegativeButton(getNegativeButton(), listener);
-                            }
-                            if (getNeutralButton() != null)
-                            {
-                                builder.setNeutralButton(getNeutralButton(), listener);
-                            }
+                            builder.setPositiveButton(getPositiveButton(), listener);
+                            builder.setNegativeButton(getNegativeButton(), listener);
+                            builder.setNeutralButton(getNeutralButton(), listener);
                             final AlertDialog dialog = builder.create();
                             subscriber.add(Subscriptions.create(new Action0()
                             {
