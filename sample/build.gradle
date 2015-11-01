@@ -10,6 +10,8 @@ android {
     targetSdkVersion TARGET_SDK
     versionCode 1
     versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     release {
@@ -27,6 +29,7 @@ dependencies {
   compile "com.android.support:design:$SUPPORT"
   compile "com.android.support:support-annotations:$SUPPORT"
   compile "io.reactivex:rxandroid:$RX_ANDROID"
+  compile "com.jakewharton:butterknife:$BUTTERKNIFE"
 
   testCompile "junit:junit:$JUNIT"
   testCompile "org.easytesting:fest-assert-core:$FEST_ASSERT"

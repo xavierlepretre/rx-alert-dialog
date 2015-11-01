@@ -25,6 +25,7 @@ project.ext {
 
   SUPPORT = "23.1.0"
   RX_ANDROID = "1.0.1"
+  BUTTERKNIFE = "7.0.1"
 
   JUNIT = "4.12"
   FEST_ASSERT = "2.0M10"

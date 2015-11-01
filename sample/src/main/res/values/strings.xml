@@ -1,0 +1,20 @@
+<resources>
+
+  <string name="app_name">Test RxAlertDialog</string>
+  <string name="action_settings">Settings</string>
+
+  <string name="header_texts">Texts</string>
+  <string name="field_title">Title</string>
+  <string name="field_message">Description</string>
+
+  <string name="header_buttons">Buttons</string>
+  <string name="field_button_positive">Positive Button</string>
+  <string name="field_button_negative">Negative Button</string>
+  <string name="field_button_neutral">Neutral Button</string>
+
+  <string name="button_dialog_android">Android Dialog</string>
+  <string name="button_dialog_support">Support Dialog</string>
+
+  <string name="header_events">Events</string>
+
+</resources>
