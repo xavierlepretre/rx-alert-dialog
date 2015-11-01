@@ -2,17 +2,14 @@ package com.github.xavierlepretre.rxdialog.android;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import com.github.xavierlepretre.rxdialog.RxAlertDialogBuilder;
-import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
+import com.github.xavierlepretre.rxdialog.AlertDialogBuilderWrapper;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
+import com.github.xavierlepretre.rxdialog.RxAlertDialogBuilder;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Action1;
-import rx.subscriptions.Subscriptions;
 
 public class RxAlertDialog
 {
@@ -41,39 +38,11 @@ public class RxAlertDialog
                         @Override
                         public void call(final Subscriber<? super AlertDialogEvent> subscriber)
                         {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setTitle(getTitle());
-                            builder.setMessage(getMessage());
-                            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
-                            {
-                                @Override public void onClick(DialogInterface dialog, int which)
-                                {
-                                    subscriber.onNext(new AlertDialogButtonEvent(which));
-                                    subscriber.onCompleted();
-                                }
-                            };
-                            builder.setPositiveButton(getPositiveButton(), listener);
-                            builder.setNegativeButton(getNegativeButton(), listener);
-                            builder.setNeutralButton(getNeutralButton(), listener);
-                            final AlertDialog dialog = builder.create();
-                            subscriber.add(Subscriptions.create(new Action0()
-                            {
-                                @Override public void call()
-                                {
-                                    if (!subscriber.isUnsubscribed())
-                                    {
-                                        dialog.dismiss();
-                                    }
-                                }
-                            }));
-                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
-                            {
-                                @Override public void onDismiss(DialogInterface dialog)
-                                {
-                                    subscriber.onCompleted();
-                                }
-                            });
-                            subscriber.onNext(new AlertDialogDialogEvent(dialog));
+                            new AlertDialogBuilderWrapper(
+                                    new AlertDialog.Builder(getContext()),
+                                    Builder.this,
+                                    subscriber)
+                                    .create();
                         }
                     })
                     .subscribeOn(AndroidSchedulers.mainThread());
