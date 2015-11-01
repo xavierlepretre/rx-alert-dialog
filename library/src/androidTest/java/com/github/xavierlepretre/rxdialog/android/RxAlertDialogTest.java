@@ -1,6 +1,8 @@
 package com.github.xavierlepretre.rxdialog.android;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.github.xavierlepretre.TestHelper;
@@ -16,7 +18,6 @@ import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -30,7 +31,54 @@ public class RxAlertDialogTest
     public ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(Activity.class);
 
     @Test
-    public void build_showsDialogWith3Buttons() throws Exception
+    public void create_doesNotShowButCanShow() throws Exception
+    {
+        final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
+        final CountDownLatch gotDialogSignal = new CountDownLatch(1);
+        Subscription subscription = new RxAlertDialog.Builder(TestHelper.getActivityInstance())
+                .title("Attention")
+                .positiveButton("OK")
+                .negativeButton("Cancel")
+                .neutralButton("Later")
+                .create()
+                .subscribe(
+                        new Action1<AlertDialogEvent>()
+                        {
+                            @Override public void call(AlertDialogEvent alertDialogEvent)
+                            {
+                                subject.onNext(alertDialogEvent);
+                                gotDialogSignal.countDown();
+                            }
+                        });
+        gotDialogSignal.await(15, TimeUnit.SECONDS);
+
+        assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been created");
+        onView(withText("Attention")).check(doesNotExist());
+
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
+        final CountDownLatch shownDialogSignal = new CountDownLatch(1);
+        new Handler(Looper.getMainLooper()).post(new Runnable()
+        {
+            @Override public void run()
+            {
+                ((AlertDialogDialogEvent) subject.getValue()).getAlertDialog().show();
+                shownDialogSignal.countDown();
+            }
+        });
+        shownDialogSignal.await(15, TimeUnit.SECONDS);
+        assertThat(shownDialogSignal.getCount()).isEqualTo(0).as("We should have shown the dialog");
+
+        onView(withText("Attention")).check(matches(isDisplayed()));
+        onView(withText("OK")).check(matches(isDisplayed()));
+        onView(withText("Cancel")).check(matches(isDisplayed()));
+        onView(withText("Later")).check(matches(isDisplayed()));
+
+        assertThat(subscription.isUnsubscribed()).isFalse().as("No button has been clicked");
+        subscription.unsubscribe();
+    }
+
+    @Test
+    public void show_showsDialogWith3Buttons() throws Exception
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
@@ -65,7 +113,7 @@ public class RxAlertDialogTest
     }
 
     @Test
-    public void build_showsDialogWith2Buttons() throws Exception
+    public void show_showsDialogWith2Buttons() throws Exception
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
@@ -98,7 +146,7 @@ public class RxAlertDialogTest
     }
 
     @Test
-    public void build_showsDialogWith1Button() throws Exception
+    public void show_showsDialogWith1Button() throws Exception
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);

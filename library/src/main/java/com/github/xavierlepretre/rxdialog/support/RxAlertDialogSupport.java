@@ -11,6 +11,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.subscriptions.Subscriptions;
 
 public class RxAlertDialogSupport
@@ -32,7 +33,7 @@ public class RxAlertDialogSupport
             return this;
         }
 
-        @NonNull public Observable<AlertDialogEvent> show()
+        @NonNull public Observable<AlertDialogEvent> create()
         {
             return Observable.create(
                     new Observable.OnSubscribe<AlertDialogEvent>()
@@ -69,7 +70,7 @@ public class RxAlertDialogSupport
                             {
                                 builder.setNeutralButton(getNeutralButton(), listener);
                             }
-                            final AlertDialog dialog = builder.show();
+                            final AlertDialog dialog = builder.create();
                             subscriber.add(Subscriptions.create(new Action0()
                             {
                                 @Override public void call()
@@ -91,6 +92,21 @@ public class RxAlertDialogSupport
                         }
                     })
                     .subscribeOn(AndroidSchedulers.mainThread());
+        }
+
+        @NonNull @Override public Observable<AlertDialogEvent> show()
+        {
+            return create()
+                    .doOnNext(new Action1<AlertDialogEvent>()
+                    {
+                        @Override public void call(AlertDialogEvent dialogEvent)
+                        {
+                            if (dialogEvent instanceof AlertDialogSupportDialogEvent)
+                            {
+                                ((AlertDialogSupportDialogEvent) dialogEvent).getAlertDialog().show();
+                            }
+                        }
+                    });
         }
     }
 }
