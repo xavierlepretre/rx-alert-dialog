@@ -118,4 +118,28 @@ public class AlertDialogBuilderTest
         builder.neutralButtonRes(1);
         assertThat(builder.getNeutralButton()).isEqualTo("button3");
     }
+
+    @Test
+    public void setCancellable_sets() throws Exception
+    {
+        DummyBuilder builder = new DummyBuilder(mock(Context.class));
+        builder.cancellable(true);
+        assertThat(builder.getCancellable()).isTrue();
+        builder.cancellable(false);
+        assertThat(builder.getCancellable()).isFalse();
+        builder.cancellable(null);
+        assertThat(builder.getCancellable()).isNull();
+    }
+
+    @Test
+    public void setCanceledOnTouchOutside_sets() throws Exception
+    {
+        DummyBuilder builder = new DummyBuilder(mock(Context.class));
+        builder.canceledOnTouchOutside(true);
+        assertThat(builder.getCanceledOnTouchOutside()).isTrue();
+        builder.canceledOnTouchOutside(false);
+        assertThat(builder.getCanceledOnTouchOutside()).isFalse();
+        builder.canceledOnTouchOutside(null);
+        assertThat(builder.getCanceledOnTouchOutside()).isNull();
+    }
 }

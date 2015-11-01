@@ -96,49 +96,86 @@ public class AlertDialogBuilderWrapper
             support.setNeutralButton(rxBuilder.getNeutralButton(), listener);
         }
 
+        if (android != null && rxBuilder.getCancellable() != null)
+        {
+            android.setCancelable(rxBuilder.getCancellable());
+        }
+        else if (support != null && rxBuilder.getCancellable() != null)
+        {
+            support.setCancelable(rxBuilder.getCancellable());
+        }
+
+        final android.app.AlertDialog androidDialog;
+        final android.support.v7.app.AlertDialog supportDialog;
         if (android != null)
         {
-            final android.app.AlertDialog dialog = android.create();
-            subscriber.add(Subscriptions.create(new Action0()
-            {
-                @Override public void call()
-                {
-                    if (!subscriber.isUnsubscribed())
-                    {
-                        dialog.dismiss();
-                    }
-                }
-            }));
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
-            {
-                @Override public void onDismiss(DialogInterface dialog)
-                {
-                    subscriber.onCompleted();
-                }
-            });
-            subscriber.onNext(new AlertDialogDialogEvent(dialog));
+            androidDialog = android.create();
+            supportDialog = null;
         }
         else if (support != null)
         {
-            final android.support.v7.app.AlertDialog dialog = support.create();
-            subscriber.add(Subscriptions.create(new Action0()
+            androidDialog = null;
+            supportDialog = support.create();
+        }
+        else
+        {
+            androidDialog = null;
+            supportDialog = null;
+        }
+
+        subscriber.add(Subscriptions.create(new Action0()
+        {
+            @Override public void call()
             {
-                @Override public void call()
+                if (!subscriber.isUnsubscribed())
                 {
-                    if (!subscriber.isUnsubscribed())
+                    if (androidDialog != null)
                     {
-                        dialog.dismiss();
+                        androidDialog.dismiss();
+                    }
+                    else if (supportDialog != null)
+                    {
+                        supportDialog.dismiss();
                     }
                 }
-            }));
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+            }
+        }));
+
+        if (rxBuilder.getCanceledOnTouchOutside() != null)
+        {
+            if (androidDialog != null)
             {
-                @Override public void onDismiss(DialogInterface dialog)
-                {
-                    subscriber.onCompleted();
-                }
-            });
-            subscriber.onNext(new AlertDialogSupportDialogEvent(dialog));
+                androidDialog.setCanceledOnTouchOutside(rxBuilder.getCanceledOnTouchOutside());
+            }
+            else if (supportDialog != null)
+            {
+                supportDialog.setCanceledOnTouchOutside(rxBuilder.getCanceledOnTouchOutside());
+            }
+        }
+
+        DialogInterface.OnDismissListener dismissListener = new DialogInterface.OnDismissListener()
+        {
+            @Override public void onDismiss(DialogInterface dialog)
+            {
+                subscriber.onCompleted();
+            }
+        };
+        if (androidDialog != null)
+        {
+            androidDialog.setOnDismissListener(dismissListener);
+        }
+        else if (supportDialog != null)
+        {
+            supportDialog.setOnDismissListener(dismissListener);
+        }
+
+        if (androidDialog != null)
+        {
+            subscriber.onNext(new AlertDialogDialogEvent(androidDialog));
+        }
+        else if (supportDialog != null)
+        {
+            subscriber.onNext(new AlertDialogSupportDialogEvent(supportDialog));
         }
     }
 }

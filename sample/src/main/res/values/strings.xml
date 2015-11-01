@@ -15,6 +15,9 @@
   <string name="button_dialog_android">Android Dialog</string>
   <string name="button_dialog_support">Support Dialog</string>
 
+  <string name="field_cancellable">Cancellable</string>
+  <string name="field_canceled_on_touch_outside">Canceled on Touch Outside</string>
+
   <string name="header_events">Events</string>
 
 </resources>

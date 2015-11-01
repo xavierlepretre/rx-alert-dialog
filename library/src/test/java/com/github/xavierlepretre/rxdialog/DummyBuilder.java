@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import rx.Observable;
 
-public class DummyBuilder extends RxAlertDialogBuilder<AlertDialog, DummyBuilder>
+public class DummyBuilder extends RxAlertDialogBuilder<DummyBuilder>
 {
     public DummyBuilder(@NonNull Context context)
     {
@@ -17,7 +17,12 @@ public class DummyBuilder extends RxAlertDialogBuilder<AlertDialog, DummyBuilder
         return this;
     }
 
-    @NonNull @Override public Observable<AlertDialogEvent> build()
+    @NonNull @Override public Observable<AlertDialogEvent> create()
+    {
+        return Observable.empty();
+    }
+
+    @NonNull @Override public Observable<AlertDialogEvent> show()
     {
         return Observable.empty();
     }

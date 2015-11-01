@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.input_button_positive) TextView buttonPositive;
     @Bind(R.id.input_button_negative) TextView buttonNegative;
     @Bind(R.id.input_button_neutral) TextView buttonNeutral;
+    @Bind(R.id.cancellable_spinner) AppCompatSpinner cancellableSpinner;
+    @Bind(R.id.canceled_on_touch_outside_spinner) AppCompatSpinner canceledOnTouchOutsideSpinner;
 
     private SubscriptionList subscriptionList;
     private Observer<AlertDialogEvent> dialogEventObserver;
@@ -59,6 +63,16 @@ public class MainActivity extends AppCompatActivity
                 getLayoutInflater());
 
         ButterKnife.bind(this);
+
+        cancellableSpinner.setAdapter(new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                SpinnableBoolean.getAll()));
+
+        canceledOnTouchOutsideSpinner.setAdapter(new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                SpinnableBoolean.getAll()));
     }
 
     @Override
@@ -103,6 +117,8 @@ public class MainActivity extends AppCompatActivity
                 .positiveButton(buttonPositive.getText().toString())
                 .negativeButton(buttonNegative.getText().toString())
                 .neutralButton(buttonNeutral.getText().toString())
+                .cancellable(((SpinnableBoolean) cancellableSpinner.getSelectedItem()).getValue())
+                .canceledOnTouchOutside(((SpinnableBoolean) canceledOnTouchOutsideSpinner.getSelectedItem()).getValue())
                 .show()
                 .subscribe(dialogEventObserver));
     }
@@ -113,9 +129,12 @@ public class MainActivity extends AppCompatActivity
     {
         subscriptionList.add(new RxAlertDialogSupport.Builder(this)
                 .title(titleView.getText().toString())
+                .message(messageView.getText().toString())
                 .positiveButton(buttonPositive.getText().toString())
                 .negativeButton(buttonNegative.getText().toString())
                 .neutralButton(buttonNeutral.getText().toString())
+                .cancellable(((SpinnableBoolean) cancellableSpinner.getSelectedItem()).getValue())
+                .canceledOnTouchOutside(((SpinnableBoolean) canceledOnTouchOutsideSpinner.getSelectedItem()).getValue())
                 .show()
                 .subscribe(dialogEventObserver));
     }

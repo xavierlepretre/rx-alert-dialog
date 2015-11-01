@@ -18,6 +18,7 @@ import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -238,5 +239,68 @@ public class RxAlertDialogSupportTest
         Thread.sleep(1000);
 
         onView(withText("Attention")).check(doesNotExist());
+    }
+
+    @Test
+    public void ifSetTrue_pressBack_canDismiss() throws Exception
+    {
+        final CountDownLatch gotDialogSignal = new CountDownLatch(1);
+        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+                .title("Attention")
+                .message("Message1")
+                .positiveButton("OK")
+                .negativeButton("Cancel")
+                .neutralButton("Later")
+                .cancellable(true)
+                .show()
+                .subscribe(
+                        new Action1<AlertDialogEvent>()
+                        {
+                            @Override public void call(AlertDialogEvent alertDialogEvent)
+                            {
+                                gotDialogSignal.countDown();
+                            }
+                        });
+        gotDialogSignal.await(15, TimeUnit.SECONDS);
+
+        assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been created");
+        onView(withText("Attention")).check(matches(isDisplayed()));
+
+        pressBack();
+        onView(withText("Attention")).check(doesNotExist());
+
+        assertThat(subscription.isUnsubscribed()).isTrue().as("Dismiss should unsubscribe");
+    }
+
+    @Test
+    public void ifSetFalse_pressBack_willNotDismiss() throws Exception
+    {
+        final CountDownLatch gotDialogSignal = new CountDownLatch(1);
+        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+                .title("Attention")
+                .message("Message1")
+                .positiveButton("OK")
+                .negativeButton("Cancel")
+                .neutralButton("Later")
+                .cancellable(false)
+                .show()
+                .subscribe(
+                        new Action1<AlertDialogEvent>()
+                        {
+                            @Override public void call(AlertDialogEvent alertDialogEvent)
+                            {
+                                gotDialogSignal.countDown();
+                            }
+                        });
+        gotDialogSignal.await(15, TimeUnit.SECONDS);
+
+        assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been created");
+        onView(withText("Attention")).check(matches(isDisplayed()));
+
+        pressBack();
+        onView(withText("Attention")).check(matches(isDisplayed()));
+
+        assertThat(subscription.isUnsubscribed()).isFalse().as("It should not have dismissed");
+        subscription.unsubscribe();
     }
 }

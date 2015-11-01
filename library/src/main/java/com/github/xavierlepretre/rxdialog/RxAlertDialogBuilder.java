@@ -14,6 +14,8 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable private String positiveButton;
     @Nullable private String negativeButton;
     @Nullable private String neutralButton;
+    @Nullable private Boolean cancellable;
+    @Nullable private Boolean canceledOnTouchOutside;
 
     public RxAlertDialogBuilder(@NonNull Context context)
     {
@@ -108,6 +110,28 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable public String getNeutralButton()
     {
         return neutralButton;
+    }
+
+    @NonNull public BuilderType cancellable(@Nullable Boolean cancellable)
+    {
+        this.cancellable = cancellable;
+        return self();
+    }
+
+    @Nullable public Boolean getCancellable()
+    {
+        return cancellable;
+    }
+
+    @NonNull public BuilderType canceledOnTouchOutside(@Nullable Boolean canceledOnTouchOutside)
+    {
+        this.canceledOnTouchOutside = canceledOnTouchOutside;
+        return self();
+    }
+
+    @Nullable public Boolean getCanceledOnTouchOutside()
+    {
+        return canceledOnTouchOutside;
     }
 
     @NonNull abstract protected BuilderType self();

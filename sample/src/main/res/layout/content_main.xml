@@ -103,6 +103,48 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@string/field_cancellable"
+          android:layout_weight="1"
+          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+          />
+
+      <android.support.v7.widget.AppCompatSpinner
+          android:id="@+id/cancellable_spinner"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/field_canceled_on_touch_outside"
+          android:lines="1"
+          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+          />
+
+      <android.support.v7.widget.AppCompatSpinner
+          android:id="@+id/canceled_on_touch_outside_spinner"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
