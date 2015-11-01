@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import com.github.xavierlepretre.rxdialog.AlertDialogBuilder;
+import com.github.xavierlepretre.rxdialog.RxAlertDialogBuilder;
 import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import rx.Observable;
@@ -21,7 +21,7 @@ public class RxAlertDialogSupport
         throw new IllegalStateException("No instance");
     }
 
-    public static class Builder extends AlertDialogBuilder<AlertDialog, Builder>
+    public static class Builder extends RxAlertDialogBuilder<AlertDialog, Builder>
     {
         public Builder(@NonNull Context context)
         {

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import rx.Observable;
 
-public class DummyBuilder extends AlertDialogBuilder<AlertDialog, DummyBuilder>
+public class DummyBuilder extends RxAlertDialogBuilder<AlertDialog, DummyBuilder>
 {
     public DummyBuilder(@NonNull Context context)
     {

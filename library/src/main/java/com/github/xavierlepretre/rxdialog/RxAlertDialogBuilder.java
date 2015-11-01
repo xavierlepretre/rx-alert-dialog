@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import rx.Observable;
 
-abstract public class AlertDialogBuilder<DialogType, BuilderType extends AlertDialogBuilder<DialogType, BuilderType>>
+abstract public class RxAlertDialogBuilder<DialogType, BuilderType extends RxAlertDialogBuilder<DialogType, BuilderType>>
 {
     @NonNull private final Context context;
     @Nullable private String title;
@@ -15,7 +15,7 @@ abstract public class AlertDialogBuilder<DialogType, BuilderType extends AlertDi
     @Nullable private String negativeButton;
     @Nullable private String neutralButton;
 
-    public AlertDialogBuilder(@NonNull Context context)
+    public RxAlertDialogBuilder(@NonNull Context context)
     {
         this.context = context;
     }
