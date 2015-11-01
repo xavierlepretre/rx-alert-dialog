@@ -37,6 +37,7 @@ public class RxAlertDialogTest
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
         Subscription subscription = new RxAlertDialog.Builder(TestHelper.getActivityInstance())
                 .title("Attention")
+                .message("Message1")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
                 .neutralButton("Later")
@@ -69,6 +70,7 @@ public class RxAlertDialogTest
         assertThat(shownDialogSignal.getCount()).isEqualTo(0).as("We should have shown the dialog");
 
         onView(withText("Attention")).check(matches(isDisplayed()));
+        onView(withText("Message1")).check(matches(isDisplayed()));
         onView(withText("OK")).check(matches(isDisplayed()));
         onView(withText("Cancel")).check(matches(isDisplayed()));
         onView(withText("Later")).check(matches(isDisplayed()));

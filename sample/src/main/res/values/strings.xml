@@ -5,7 +5,7 @@
 
   <string name="header_texts">Texts</string>
   <string name="field_title">Title</string>
-  <string name="field_message">Description</string>
+  <string name="field_message">Message</string>
 
   <string name="header_buttons">Buttons</string>
   <string name="field_button_positive">Positive Button</string>
