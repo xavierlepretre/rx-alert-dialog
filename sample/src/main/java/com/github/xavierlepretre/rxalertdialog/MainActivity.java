@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
+import com.github.xavierlepretre.rxdialog.RxAlertDialogBuilder;
 import com.github.xavierlepretre.rxdialog.android.RxAlertDialog;
 import com.github.xavierlepretre.rxdialog.support.RxAlertDialogSupport;
 import rx.Observer;
@@ -111,23 +112,20 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.create_dialog_android)
     protected void onCreateAndroidClicked(@NonNull View ignored)
     {
-        subscriptionList.add(new RxAlertDialog.Builder(this)
-                .title(titleView.getText().toString())
-                .message(messageView.getText().toString())
-                .positiveButton(buttonPositive.getText().toString())
-                .negativeButton(buttonNegative.getText().toString())
-                .neutralButton(buttonNeutral.getText().toString())
-                .cancellable(((SpinnableBoolean) cancellableSpinner.getSelectedItem()).getValue())
-                .canceledOnTouchOutside(((SpinnableBoolean) canceledOnTouchOutsideSpinner.getSelectedItem()).getValue())
-                .show()
-                .subscribe(dialogEventObserver));
+        prepareAndShow(new RxAlertDialog.Builder(this));
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.create_dialog_support)
     protected void onCreateSupportClicked(@NonNull View ignored)
     {
-        subscriptionList.add(new RxAlertDialogSupport.Builder(this)
+        prepareAndShow(new RxAlertDialogSupport.Builder(this));
+    }
+
+    private void prepareAndShow(@NonNull RxAlertDialogBuilder builder)
+    {
+        //noinspection unchecked
+        subscriptionList.add(builder
                 .title(titleView.getText().toString())
                 .message(messageView.getText().toString())
                 .positiveButton(buttonPositive.getText().toString())
