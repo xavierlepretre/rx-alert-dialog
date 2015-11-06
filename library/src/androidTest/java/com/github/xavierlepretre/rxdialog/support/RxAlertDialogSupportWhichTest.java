@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.test.rule.ActivityTestRule;
 import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
+import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.Collection;
 import java.util.HashMap;
@@ -71,7 +72,7 @@ public class RxAlertDialogSupportWhichTest
 
         buttonSignal.await(15, TimeUnit.SECONDS);
         assertThat(buttonSignal.getCount()).isEqualTo(0).as("The dialog should have been shown");
-        assertThat(subject.getValues()[0]).isInstanceOf(AlertDialogSupportDialogEvent.class);
+        assertThat(subject.getValues()[0]).isInstanceOf(AlertDialogDialogEvent.class);
         assertThat(subject.getValues()[1]).isInstanceOf(AlertDialogButtonEvent.class);
         assertThat(((AlertDialogButtonEvent) subject.getValues()[1]).getWhich()).isEqualTo(button.getKey());
         assertThat(subscription.isUnsubscribed()).as("Clicking the  button " + button.getKey() + " should have completed the observable");

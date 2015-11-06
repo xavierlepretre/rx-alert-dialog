@@ -1,9 +1,9 @@
 package com.github.xavierlepretre.rxdialog.android;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.github.xavierlepretre.rxdialog.AlertDialogBuilderWrapper;
+import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import com.github.xavierlepretre.rxdialog.RxAlertDialogBuilder;
 import rx.Observable;
@@ -39,10 +39,9 @@ public class RxAlertDialog
                         public void call(final Subscriber<? super AlertDialogEvent> subscriber)
                         {
                             new AlertDialogBuilderWrapper(
-                                    new AlertDialog.Builder(getContext()),
-                                    Builder.this,
-                                    subscriber)
-                                    .create();
+                                    new BuilderJoinerAndroid(getContext()),
+                                    Builder.this)
+                                    .create(subscriber);
                         }
                     })
                     .subscribeOn(AndroidSchedulers.mainThread());
@@ -57,7 +56,7 @@ public class RxAlertDialog
                         {
                             if (dialogEvent instanceof AlertDialogDialogEvent)
                             {
-                                ((AlertDialogDialogEvent) dialogEvent).getAlertDialog().show();
+                                ((AlertDialogDialogEvent) dialogEvent).getDialog().show();
                             }
                         }
                     });

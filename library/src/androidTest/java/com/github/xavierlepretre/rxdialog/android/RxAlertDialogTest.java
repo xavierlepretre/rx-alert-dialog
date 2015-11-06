@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -61,7 +62,7 @@ public class RxAlertDialogTest
         {
             @Override public void run()
             {
-                ((AlertDialogDialogEvent) subject.getValue()).getAlertDialog().show();
+                ((AlertDialogDialogEvent) subject.getValue()).getDialog().show();
                 shownDialogSignal.countDown();
             }
         });
@@ -200,7 +201,7 @@ public class RxAlertDialogTest
                         {
                             @Override public void call(AlertDialogEvent alertDialogEvent)
                             {
-                                ((AlertDialogDialogEvent) alertDialogEvent).getAlertDialog().dismiss();
+                                ((AlertDialogDialogEvent) alertDialogEvent).getDialog().dismiss();
                                 gotDialogSignal.countDown();
                             }
                         });
@@ -226,7 +227,7 @@ public class RxAlertDialogTest
                         {
                             @Override public void call(AlertDialogEvent alertDialogEvent)
                             {
-                                ((AlertDialogDialogEvent) alertDialogEvent).getAlertDialog().dismiss();
+                                ((AlertDialogDialogEvent) alertDialogEvent).getDialog().dismiss();
                                 gotDialogSignal.countDown();
                             }
                         });

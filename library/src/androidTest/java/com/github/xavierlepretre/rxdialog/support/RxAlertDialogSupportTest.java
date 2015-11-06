@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -55,13 +56,13 @@ public class RxAlertDialogSupportTest
         assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been created");
         onView(withText("Attention")).check(doesNotExist());
 
-        assertThat(subject.getValue()).isInstanceOf(AlertDialogSupportDialogEvent.class);
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
         final CountDownLatch shownDialogSignal = new CountDownLatch(1);
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable()
         {
             @Override public void run()
             {
-                ((AlertDialogSupportDialogEvent) subject.getValue()).getAlertDialog().show();
+                ((AlertDialogDialogEvent) subject.getValue()).getDialog().show();
                 shownDialogSignal.countDown();
             }
         });
@@ -102,7 +103,7 @@ public class RxAlertDialogSupportTest
         gotDialogSignal.await(15, TimeUnit.SECONDS);
 
         assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been shown");
-        assertThat(subject.getValue()).isInstanceOf(AlertDialogSupportDialogEvent.class);
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
         onView(withText("Attention")).check(matches(isDisplayed()));
         onView(withText("Message1")).check(matches(isDisplayed()));
         onView(withText("OK")).check(matches(isDisplayed()));
@@ -136,7 +137,7 @@ public class RxAlertDialogSupportTest
         gotDialogSignal.await(15, TimeUnit.SECONDS);
 
         assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been shown");
-        assertThat(subject.getValue()).isInstanceOf(AlertDialogSupportDialogEvent.class);
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
         onView(withText("Attention")).check(matches(isDisplayed()));
         onView(withText("Message1")).check(matches(isDisplayed()));
         onView(withText("OK")).check(matches(isDisplayed()));
@@ -168,7 +169,7 @@ public class RxAlertDialogSupportTest
         gotDialogSignal.await(15, TimeUnit.SECONDS);
 
         assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been shown");
-        assertThat(subject.getValue()).isInstanceOf(AlertDialogSupportDialogEvent.class);
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
         onView(withText("Attention")).check(matches(isDisplayed()));
         onView(withText("Message1")).check(matches(isDisplayed()));
         onView(withText("OK")).check(doesNotExist()); // Notice the "Not" here.
@@ -200,7 +201,7 @@ public class RxAlertDialogSupportTest
                         {
                             @Override public void call(AlertDialogEvent alertDialogEvent)
                             {
-                                ((AlertDialogSupportDialogEvent) alertDialogEvent).getAlertDialog().dismiss();
+                                ((AlertDialogDialogEvent) alertDialogEvent).getDialog().dismiss();
                                 gotDialogSignal.countDown();
                             }
                         });
@@ -226,7 +227,7 @@ public class RxAlertDialogSupportTest
                         {
                             @Override public void call(AlertDialogEvent alertDialogEvent)
                             {
-                                ((AlertDialogSupportDialogEvent) alertDialogEvent).getAlertDialog().dismiss();
+                                ((AlertDialogDialogEvent) alertDialogEvent).getDialog().dismiss();
                                 gotDialogSignal.countDown();
                             }
                         });

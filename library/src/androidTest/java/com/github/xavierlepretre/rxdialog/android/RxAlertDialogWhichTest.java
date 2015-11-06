@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.test.rule.ActivityTestRule;
 import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
+import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.Collection;
 import java.util.HashMap;
