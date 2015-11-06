@@ -3,7 +3,6 @@ package com.github.xavierlepretre.rxdialog.support;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.test.rule.ActivityTestRule;
-import com.github.xavierlepretre.TestHelper;
 import com.github.xavierlepretre.rxdialog.AlertDialogButtonEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.Collection;
@@ -49,7 +48,7 @@ public class RxAlertDialogSupportWhichTest
         final ReplaySubject<AlertDialogEvent> subject = ReplaySubject.create();
         final CountDownLatch dialogSignal = new CountDownLatch(1);
         final CountDownLatch buttonSignal = new CountDownLatch(2);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Irrelevant")
                 .positiveButton("PosButton")
                 .negativeButton("NegButton")

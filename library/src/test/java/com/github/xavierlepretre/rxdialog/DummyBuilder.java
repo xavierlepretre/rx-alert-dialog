@@ -1,11 +1,10 @@
 package com.github.xavierlepretre.rxdialog;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import rx.Observable;
 
-public class DummyBuilder extends RxAlertDialogBuilder<DummyBuilder>
+class DummyBuilder extends RxAlertDialogBuilder<DummyBuilder>
 {
     public DummyBuilder(@NonNull Context context)
     {

@@ -1,6 +1,7 @@
 package com.github.xavierlepretre.rxdialog;
 
 import android.content.Context;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -9,10 +10,19 @@ import static org.mockito.Mockito.when;
 
 public class AlertDialogBuilderTest
 {
+    private Context context;
+    private RxAlertDialogBuilder builder;
+
+    @Before
+    public void setUp()
+    {
+        this.context = mock(Context.class);
+        this.builder = new DummyBuilder(context);
+    }
+
     @Test
     public void setTitleString_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.title("title1");
         assertThat(builder.getTitle()).isEqualTo("title1");
         builder.title(null);
@@ -22,8 +32,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setTitleRes_setsString() throws Exception
     {
-        Context context = mock(Context.class);
-        DummyBuilder builder = new DummyBuilder(context);
         //noinspection ResourceType
         when(context.getString(1)).thenReturn("title1");
         //noinspection ResourceType
@@ -34,7 +42,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setMessageString_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.message("message1");
         assertThat(builder.getMessage()).isEqualTo("message1");
         builder.message(null);
@@ -44,8 +51,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setMessageRes_setsString() throws Exception
     {
-        Context context = mock(Context.class);
-        DummyBuilder builder = new DummyBuilder(context);
         //noinspection ResourceType
         when(context.getString(1)).thenReturn("message1");
         //noinspection ResourceType
@@ -56,7 +61,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setPositiveButtonString_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.positiveButton("button1");
         assertThat(builder.getPositiveButton()).isEqualTo("button1");
         builder.positiveButton(null);
@@ -66,8 +70,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setPositiveButtonRes_setsString() throws Exception
     {
-        Context context = mock(Context.class);
-        DummyBuilder builder = new DummyBuilder(context);
         //noinspection ResourceType
         when(context.getString(1)).thenReturn("button1");
         //noinspection ResourceType
@@ -78,7 +80,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setNegativeButtonString_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.negativeButton("button2");
         assertThat(builder.getNegativeButton()).isEqualTo("button2");
         builder.negativeButton(null);
@@ -88,8 +89,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setNegativeButtonRes_setsString() throws Exception
     {
-        Context context = mock(Context.class);
-        DummyBuilder builder = new DummyBuilder(context);
         //noinspection ResourceType
         when(context.getString(1)).thenReturn("button2");
         //noinspection ResourceType
@@ -100,7 +99,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setNeutralButtonString_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.neutralButton("button3");
         assertThat(builder.getNeutralButton()).isEqualTo("button3");
         builder.neutralButton(null);
@@ -110,8 +108,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setNeutralButtonRes_setsString() throws Exception
     {
-        Context context = mock(Context.class);
-        DummyBuilder builder = new DummyBuilder(context);
         //noinspection ResourceType
         when(context.getString(1)).thenReturn("button3");
         //noinspection ResourceType
@@ -122,7 +118,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setCancellable_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.cancellable(true);
         assertThat(builder.getCancellable()).isTrue();
         builder.cancellable(false);
@@ -134,7 +129,6 @@ public class AlertDialogBuilderTest
     @Test
     public void setCanceledOnTouchOutside_sets() throws Exception
     {
-        DummyBuilder builder = new DummyBuilder(mock(Context.class));
         builder.canceledOnTouchOutside(true);
         assertThat(builder.getCanceledOnTouchOutside()).isTrue();
         builder.canceledOnTouchOutside(false);

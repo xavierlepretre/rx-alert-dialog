@@ -1,11 +1,9 @@
 package com.github.xavierlepretre.rxdialog.support;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import com.github.xavierlepretre.TestHelper;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -36,7 +34,7 @@ public class RxAlertDialogSupportTest
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .positiveButton("OK")
@@ -59,7 +57,7 @@ public class RxAlertDialogSupportTest
 
         assertThat(subject.getValue()).isInstanceOf(AlertDialogSupportDialogEvent.class);
         final CountDownLatch shownDialogSignal = new CountDownLatch(1);
-        new Handler(Looper.getMainLooper()).post(new Runnable()
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable()
         {
             @Override public void run()
             {
@@ -85,7 +83,7 @@ public class RxAlertDialogSupportTest
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .positiveButton("OK")
@@ -120,7 +118,7 @@ public class RxAlertDialogSupportTest
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .positiveButton("OK")
@@ -153,7 +151,7 @@ public class RxAlertDialogSupportTest
     {
         final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .negativeButton("Cancel") // Notice there is no positive button.
@@ -185,7 +183,7 @@ public class RxAlertDialogSupportTest
     {
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
         final CountDownLatch gotCompletedSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
@@ -218,7 +216,7 @@ public class RxAlertDialogSupportTest
     public void unsubscribe_willDismissDialog() throws Exception
     {
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .positiveButton("OK")
                 .negativeButton("Cancel")
@@ -245,7 +243,7 @@ public class RxAlertDialogSupportTest
     public void ifSetTrue_pressBack_canDismiss() throws Exception
     {
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .positiveButton("OK")
@@ -276,7 +274,7 @@ public class RxAlertDialogSupportTest
     public void ifSetFalse_pressBack_willNotDismiss() throws Exception
     {
         final CountDownLatch gotDialogSignal = new CountDownLatch(1);
-        Subscription subscription = new RxAlertDialogSupport.Builder(TestHelper.getActivityInstance())
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
                 .positiveButton("OK")
