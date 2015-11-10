@@ -11,12 +11,12 @@ import rx.subscriptions.Subscriptions;
  * This builder lets us have all similar calls in one place.
  * It will help reduce the number of future omissions.
  */
-public class AlertDialogBuilderWrapper
+public class AlertDialogBuilderOnSubscribe
 {
     @NonNull private final BuilderJoiner joiner;
     @NonNull private final RxAlertDialogBuilder rxBuilder;
 
-    public AlertDialogBuilderWrapper(
+    public AlertDialogBuilderOnSubscribe(
             @NonNull BuilderJoiner joiner,
             @NonNull RxAlertDialogBuilder rxBuilder)
     {
