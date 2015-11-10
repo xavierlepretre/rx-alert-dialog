@@ -3,6 +3,8 @@ package com.github.xavierlepretre.rxdialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+
+import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.subscriptions.Subscriptions;
@@ -11,7 +13,7 @@ import rx.subscriptions.Subscriptions;
  * This builder lets us have all similar calls in one place.
  * It will help reduce the number of future omissions.
  */
-public class AlertDialogBuilderOnSubscribe
+public class AlertDialogBuilderOnSubscribe implements Observable.OnSubscribe<AlertDialogEvent>
 {
     @NonNull private final BuilderJoiner joiner;
     @NonNull private final RxAlertDialogBuilder rxBuilder;
@@ -24,7 +26,7 @@ public class AlertDialogBuilderOnSubscribe
         this.rxBuilder = rxBuilder;
     }
 
-    public void create(@NonNull final Subscriber<? super AlertDialogEvent> subscriber)
+    @Override public void call(@NonNull final Subscriber<? super AlertDialogEvent> subscriber)
     {
         joiner.setTitle(rxBuilder.getTitle());
         joiner.setMessage(rxBuilder.getMessage());
