@@ -29,7 +29,15 @@ public class AlertDialogBuilderOnSubscribe implements Observable.OnSubscribe<Ale
     @Override public void call(@NonNull final Subscriber<? super AlertDialogEvent> subscriber)
     {
         joiner.setTitle(rxBuilder.getTitle());
+        if (rxBuilder.getTitleRes() != null)
+        {
+            joiner.setTitle(rxBuilder.getTitleRes());
+        }
         joiner.setMessage(rxBuilder.getMessage());
+        if (rxBuilder.getMessageRes() != null)
+        {
+            joiner.setMessage(rxBuilder.getMessageRes());
+        }
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
         {
@@ -40,8 +48,20 @@ public class AlertDialogBuilderOnSubscribe implements Observable.OnSubscribe<Ale
             }
         };
         joiner.setPositiveButton(rxBuilder.getPositiveButton(), listener);
+        if (rxBuilder.getPositiveButtonRes() != null)
+        {
+            joiner.setPositiveButton(rxBuilder.getPositiveButtonRes(), listener);
+        }
         joiner.setNegativeButton(rxBuilder.getNegativeButton(), listener);
+        if (rxBuilder.getNegativeButtonRes() != null)
+        {
+            joiner.setNegativeButton(rxBuilder.getNegativeButtonRes(), listener);
+        }
         joiner.setNeutralButton(rxBuilder.getNeutralButton(), listener);
+        if (rxBuilder.getNeutralButtonRes() != null)
+        {
+            joiner.setNeutralButton(rxBuilder.getNeutralButtonRes(), listener);
+        }
 
         if (rxBuilder.getCancellable() != null)
         {

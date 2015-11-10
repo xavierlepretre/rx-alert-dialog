@@ -1,6 +1,7 @@
 package com.github.xavierlepretre.rxdialog.support;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -23,6 +24,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.spy;
 
 @RunWith(AndroidJUnit4.class)
 public class RxAlertDialogSupportTest
@@ -109,6 +111,42 @@ public class RxAlertDialogSupportTest
         onView(withText("OK")).check(matches(isDisplayed()));
         onView(withText("Cancel")).check(matches(isDisplayed()));
         onView(withText("Later")).check(matches(isDisplayed()));
+
+        assertThat(subscription.isUnsubscribed()).isFalse().as("No button has been clicked");
+        subscription.unsubscribe();
+    }
+
+    @Test
+    public void show_showsDialogWith3ButtonsRes() throws Exception
+    {
+        final BehaviorSubject<AlertDialogEvent> subject = BehaviorSubject.create();
+        final CountDownLatch gotDialogSignal = new CountDownLatch(1);
+        Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
+                .title(android.R.string.copy)
+                .message(android.R.string.copyUrl)
+                .positiveButton(android.R.string.yes)
+                .negativeButton(android.R.string.cancel)
+                .neutralButton(android.R.string.search_go)
+                .show()
+                .subscribe(
+                        new Action1<AlertDialogEvent>()
+                        {
+                            @Override public void call(AlertDialogEvent alertDialogEvent)
+                            {
+                                subject.onNext(alertDialogEvent);
+                                gotDialogSignal.countDown();
+                            }
+                        });
+        gotDialogSignal.await(15, TimeUnit.SECONDS);
+
+        assertThat(gotDialogSignal.getCount()).isEqualTo(0).as("The dialog should have been shown");
+        assertThat(subject.getValue()).isInstanceOf(AlertDialogDialogEvent.class);
+        Resources resources = mActivityRule.getActivity().getResources();
+        onView(withText(resources.getString(android.R.string.copy))).check(matches(isDisplayed()));
+        onView(withText(resources.getString(android.R.string.copyUrl))).check(matches(isDisplayed()));
+        onView(withText(resources.getString(android.R.string.yes))).check(matches(isDisplayed()));
+        onView(withText(resources.getString(android.R.string.cancel))).check(matches(isDisplayed()));
+        onView(withText(resources.getString(android.R.string.search_go))).check(matches(isDisplayed()));
 
         assertThat(subscription.isUnsubscribed()).isFalse().as("No button has been clicked");
         subscription.unsubscribe();

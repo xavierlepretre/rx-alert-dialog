@@ -1,5 +1,7 @@
 package com.github.xavierlepretre.rxdialog.android;
 
+import com.github.xavierlepretre.rxdialog.BuilderJoiner;
+
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,11 +9,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.github.xavierlepretre.rxdialog.BuilderJoiner;
+import android.support.annotation.StringRes;
 
 public class BuilderJoinerAndroid extends AlertDialog.Builder
-    implements BuilderJoiner
+        implements BuilderJoiner
 {
     public BuilderJoinerAndroid(Context context)
     {
@@ -30,10 +31,20 @@ public class BuilderJoinerAndroid extends AlertDialog.Builder
         return (BuilderJoinerAndroid) super.setTitle(title);
     }
 
+    @NonNull @Override public BuilderJoinerAndroid setTitle(@StringRes int titleId)
+    {
+        return (BuilderJoinerAndroid) super.setTitle(titleId);
+    }
+
     @NonNull @Override
     public BuilderJoinerAndroid setMessage(@Nullable CharSequence message)
     {
         return (BuilderJoinerAndroid) super.setMessage(message);
+    }
+
+    @NonNull @Override public BuilderJoinerAndroid setMessage(@StringRes int messageId)
+    {
+        return (BuilderJoinerAndroid) super.setMessage(messageId);
     }
 
     @NonNull @Override
@@ -45,6 +56,14 @@ public class BuilderJoinerAndroid extends AlertDialog.Builder
     }
 
     @NonNull @Override
+    public BuilderJoinerAndroid setPositiveButton(
+            @StringRes int textId,
+            @Nullable OnClickListener listener)
+    {
+        return (BuilderJoinerAndroid) super.setPositiveButton(textId, listener);
+    }
+
+    @NonNull @Override
     public BuilderJoinerAndroid setNegativeButton(
             @Nullable CharSequence text,
             @Nullable OnClickListener listener)
@@ -53,11 +72,27 @@ public class BuilderJoinerAndroid extends AlertDialog.Builder
     }
 
     @NonNull @Override
+    public BuilderJoinerAndroid setNegativeButton(
+            @StringRes int textId,
+            @Nullable OnClickListener listener)
+    {
+        return (BuilderJoinerAndroid) super.setNegativeButton(textId, listener);
+    }
+
+    @NonNull @Override
     public BuilderJoinerAndroid setNeutralButton(
             @Nullable CharSequence text,
             @Nullable OnClickListener listener)
     {
         return (BuilderJoinerAndroid) super.setNeutralButton(text, listener);
+    }
+
+    @NonNull @Override
+    public BuilderJoinerAndroid setNeutralButton(
+            @StringRes int textId,
+            @Nullable OnClickListener listener)
+    {
+        return (BuilderJoinerAndroid) super.setNeutralButton(textId, listener);
     }
 
     @NonNull @Override

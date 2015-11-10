@@ -10,10 +10,15 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
 {
     @NonNull private final Context context;
     @Nullable private String title;
+    @Nullable @StringRes private Integer titleRes;
     @Nullable private String message;
+    @Nullable @StringRes private Integer messageRes;
     @Nullable private String positiveButton;
+    @Nullable @StringRes private Integer positiveButtonRes;
     @Nullable private String negativeButton;
+    @Nullable @StringRes private Integer negativeButtonRes;
     @Nullable private String neutralButton;
+    @Nullable @StringRes private Integer neutralButtonRes;
     @Nullable private Boolean cancellable;
     @Nullable private Boolean canceledOnTouchOutside;
 
@@ -33,15 +38,20 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return self();
     }
 
-    @NonNull public BuilderType titleRes(@StringRes int titleRes)
-    {
-        this.title = context.getString(titleRes);
-        return self();
-    }
-
     @Nullable protected String getTitle()
     {
         return title;
+    }
+
+    @NonNull public BuilderType title(@StringRes Integer titleRes)
+    {
+        this.titleRes = titleRes;
+        return self();
+    }
+
+    @Nullable @StringRes public Integer getTitleRes()
+    {
+        return titleRes;
     }
 
     @NonNull public BuilderType message(@Nullable String message)
@@ -50,15 +60,20 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return self();
     }
 
-    @NonNull public BuilderType messageRes(@StringRes int messageRes)
-    {
-        this.message = context.getString(messageRes);
-        return self();
-    }
-
     @Nullable public String getMessage()
     {
         return message;
+    }
+
+    @NonNull public BuilderType message(@StringRes Integer messageRes)
+    {
+        this.messageRes = messageRes;
+        return self();
+    }
+
+    @Nullable @StringRes public Integer getMessageRes()
+    {
+        return messageRes;
     }
 
     @NonNull public BuilderType positiveButton(@Nullable String positiveButton)
@@ -67,15 +82,20 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return self();
     }
 
-    @NonNull public BuilderType positiveButtonRes(@StringRes int positiveButtonRes)
-    {
-        this.positiveButton = context.getString(positiveButtonRes);
-        return self();
-    }
-
     @Nullable protected String getPositiveButton()
     {
         return positiveButton;
+    }
+
+    @NonNull public BuilderType positiveButton(@StringRes Integer positiveButtonRes)
+    {
+        this.positiveButtonRes = positiveButtonRes;
+        return self();
+    }
+
+    @Nullable @StringRes public Integer getPositiveButtonRes()
+    {
+        return positiveButtonRes;
     }
 
     @NonNull public BuilderType negativeButton(@Nullable String negativeButton)
@@ -84,15 +104,20 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return self();
     }
 
-    @NonNull public BuilderType negativeButtonRes(@StringRes int negativeButtonRes)
-    {
-        this.negativeButton = context.getString(negativeButtonRes);
-        return self();
-    }
-
     @Nullable protected String getNegativeButton()
     {
         return negativeButton;
+    }
+
+    @NonNull public BuilderType negativeButton(@StringRes Integer negativeButtonRes)
+    {
+        this.negativeButtonRes = negativeButtonRes;
+        return self();
+    }
+
+    @Nullable @StringRes public Integer getNegativeButtonRes()
+    {
+        return negativeButtonRes;
     }
 
     @NonNull public BuilderType neutralButton(@Nullable String neutralButton)
@@ -101,15 +126,20 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return self();
     }
 
-    @NonNull public BuilderType neutralButtonRes(@StringRes int neutralButtonRes)
-    {
-        this.neutralButton = context.getString(neutralButtonRes);
-        return self();
-    }
-
     @Nullable public String getNeutralButton()
     {
         return neutralButton;
+    }
+
+    @NonNull public BuilderType neutralButton(@StringRes Integer neutralButtonRes)
+    {
+        this.neutralButtonRes = neutralButtonRes;
+        return self();
+    }
+
+    @Nullable @StringRes public Integer getNeutralButtonRes()
+    {
+        return neutralButtonRes;
     }
 
     @NonNull public BuilderType cancellable(@Nullable Boolean cancellable)
