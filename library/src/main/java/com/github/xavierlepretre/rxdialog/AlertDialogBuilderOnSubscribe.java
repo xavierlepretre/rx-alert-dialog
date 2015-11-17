@@ -38,6 +38,11 @@ public class AlertDialogBuilderOnSubscribe implements Observable.OnSubscribe<Ale
         {
             joiner.setMessage(rxBuilder.getMessageRes());
         }
+        joiner.setIcon(rxBuilder.getIcon());
+        if (rxBuilder.getIconRes() != null)
+        {
+            joiner.setIcon(rxBuilder.getIconRes());
+        }
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
         {

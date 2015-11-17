@@ -2,6 +2,8 @@ package com.github.xavierlepretre.rxdialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -19,6 +21,10 @@ public interface BuilderJoiner
     @NonNull BuilderJoiner setMessage(@Nullable CharSequence message);
 
     @NonNull BuilderJoiner setMessage(@StringRes int messageRes);
+
+    @NonNull BuilderJoiner setIcon(@DrawableRes int icon);
+
+    @NonNull BuilderJoiner setIcon(@Nullable Drawable icon);
 
     @NonNull BuilderJoiner setPositiveButton(
             @Nullable CharSequence text,

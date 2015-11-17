@@ -1,9 +1,12 @@
 package com.github.xavierlepretre.rxdialog;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build.VERSION_CODES;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import android.content.Context;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -22,7 +25,7 @@ public class AlertDialogBuilderTest
     }
 
     @Test
-    public void setTitleString_setsString_redRemainsNull() throws Exception
+    public void setTitleString_setsString_resRemainsNull() throws Exception
     {
         builder.title("title1");
         assertThat(builder.getTitle()).isEqualTo("title1");
@@ -59,7 +62,7 @@ public class AlertDialogBuilderTest
     }
 
     @Test
-    public void setMessageString_setsString_redRemainsNull() throws Exception
+    public void setMessageString_setsString_resRemainsNull() throws Exception
     {
         builder.message("message1");
         assertThat(builder.getMessage()).isEqualTo("message1");
@@ -96,7 +99,47 @@ public class AlertDialogBuilderTest
     }
 
     @Test
-    public void setPositiveButtonString_setsString_redRemainsNull() throws Exception
+    public void setIconDrawable_setsString_resRemainsNull() throws Exception
+    {
+        Drawable mocked = mock(Drawable.class);
+        builder.icon(mocked);
+        assertThat(builder.getIcon()).isEqualTo(mocked);
+        assertThat(builder.getIconRes()).isNull();
+
+        builder.icon((Drawable) null);
+        assertThat(builder.getIcon()).isNull();
+        assertThat(builder.getIconRes()).isNull();
+    }
+
+    @Test @TargetApi(VERSION_CODES.LOLLIPOP)
+    public void setIconRes_setsRes_drawableRemainsNull() throws Exception
+    {
+        Drawable mocked = mock(Drawable.class);
+        when(context.getDrawable(android.R.drawable.btn_star)).thenReturn(mocked);
+
+        builder.icon(android.R.drawable.btn_star);
+        assertThat(builder.getIcon()).isNull();
+        assertThat(builder.getIconRes()).isEqualTo(android.R.drawable.btn_star);
+
+        builder.icon((Integer) null);
+        assertThat(builder.getIcon()).isNull();
+        assertThat(builder.getIconRes()).isNull();
+    }
+
+    @Test @TargetApi(VERSION_CODES.LOLLIPOP)
+    public void setIconAndRes_remainSeparate() throws Exception
+    {
+        Drawable mocked = mock(Drawable.class);
+        when(context.getDrawable(android.R.drawable.btn_star)).thenReturn(mocked);
+
+        builder.icon(mocked);
+        builder.icon(android.R.drawable.btn_star);
+        assertThat(builder.getIcon()).isEqualTo(mocked);
+        assertThat(builder.getIconRes()).isEqualTo(android.R.drawable.btn_star);
+    }
+
+    @Test
+    public void setPositiveButtonString_setsString_resRemainsNull() throws Exception
     {
         builder.positiveButton("button1");
         assertThat(builder.getPositiveButton()).isEqualTo("button1");
@@ -133,7 +176,7 @@ public class AlertDialogBuilderTest
     }
 
     @Test
-    public void setNegativeButtonString_setsString_redRemainsNull() throws Exception
+    public void setNegativeButtonString_setsString_resRemainsNull() throws Exception
     {
         builder.negativeButton("button2");
         assertThat(builder.getNegativeButton()).isEqualTo("button2");
@@ -170,7 +213,7 @@ public class AlertDialogBuilderTest
     }
 
     @Test
-    public void setNeutralButtonString_setsString_redRemainsNull() throws Exception
+    public void setNeutralButtonString_setsString_resRemainsNull() throws Exception
     {
         builder.neutralButton("button3");
         assertThat(builder.getNeutralButton()).isEqualTo("button3");

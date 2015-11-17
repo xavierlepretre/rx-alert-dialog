@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
         subscriptionList.add(builder
                 .title(titleView.getText().toString())
                 .message(messageView.getText().toString())
+                .icon(android.R.drawable.btn_star)
                 .positiveButton(buttonPositive.getText().toString())
                 .negativeButton(buttonNegative.getText().toString())
                 .neutralButton(buttonNeutral.getText().toString())

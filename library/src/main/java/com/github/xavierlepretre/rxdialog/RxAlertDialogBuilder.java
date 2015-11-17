@@ -1,6 +1,8 @@
 package com.github.xavierlepretre.rxdialog;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -13,6 +15,8 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable @StringRes private Integer titleRes;
     @Nullable private String message;
     @Nullable @StringRes private Integer messageRes;
+    @Nullable @DrawableRes private Integer iconRes;
+    @Nullable private Drawable icon;
     @Nullable private String positiveButton;
     @Nullable @StringRes private Integer positiveButtonRes;
     @Nullable private String negativeButton;
@@ -43,7 +47,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return title;
     }
 
-    @NonNull public BuilderType title(@StringRes Integer titleRes)
+    @NonNull public BuilderType title(@StringRes @Nullable Integer titleRes)
     {
         this.titleRes = titleRes;
         return self();
@@ -65,7 +69,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return message;
     }
 
-    @NonNull public BuilderType message(@StringRes Integer messageRes)
+    @NonNull public BuilderType message(@StringRes @Nullable Integer messageRes)
     {
         this.messageRes = messageRes;
         return self();
@@ -74,6 +78,28 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable @StringRes public Integer getMessageRes()
     {
         return messageRes;
+    }
+
+    @NonNull public BuilderType icon(@DrawableRes @Nullable Integer icon)
+    {
+        this.iconRes = icon;
+        return self();
+    }
+
+    @Nullable @DrawableRes public Integer getIconRes()
+    {
+        return iconRes;
+    }
+
+    @NonNull public BuilderType icon(@Nullable Drawable icon)
+    {
+        this.icon = icon;
+        return self();
+    }
+
+    @Nullable public Drawable getIcon()
+    {
+        return icon;
     }
 
     @NonNull public BuilderType positiveButton(@Nullable String positiveButton)
@@ -87,7 +113,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return positiveButton;
     }
 
-    @NonNull public BuilderType positiveButton(@StringRes Integer positiveButtonRes)
+    @NonNull public BuilderType positiveButton(@StringRes @Nullable Integer positiveButtonRes)
     {
         this.positiveButtonRes = positiveButtonRes;
         return self();
@@ -109,7 +135,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return negativeButton;
     }
 
-    @NonNull public BuilderType negativeButton(@StringRes Integer negativeButtonRes)
+    @NonNull public BuilderType negativeButton(@StringRes @Nullable Integer negativeButtonRes)
     {
         this.negativeButtonRes = negativeButtonRes;
         return self();
@@ -131,7 +157,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
         return neutralButton;
     }
 
-    @NonNull public BuilderType neutralButton(@StringRes Integer neutralButtonRes)
+    @NonNull public BuilderType neutralButton(@StringRes @Nullable Integer neutralButtonRes)
     {
         this.neutralButtonRes = neutralButtonRes;
         return self();

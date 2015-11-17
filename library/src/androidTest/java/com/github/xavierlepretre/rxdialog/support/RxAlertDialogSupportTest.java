@@ -22,6 +22,7 @@ import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.spy;
@@ -40,6 +41,7 @@ public class RxAlertDialogSupportTest
         Subscription subscription = new RxAlertDialogSupport.Builder(mActivityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
+                .icon(android.R.drawable.ic_menu_share)
                 .positiveButton("OK")
                 .negativeButton("Cancel")
                 .neutralButton("Later")
@@ -73,6 +75,7 @@ public class RxAlertDialogSupportTest
 
         onView(withText("Attention")).check(matches(isDisplayed()));
         onView(withText("Message1")).check(matches(isDisplayed()));
+        onView(withId(android.R.id.icon)).check(matches(isDisplayed()));
         onView(withText("OK")).check(matches(isDisplayed()));
         onView(withText("Cancel")).check(matches(isDisplayed()));
         onView(withText("Later")).check(matches(isDisplayed()));

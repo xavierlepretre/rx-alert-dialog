@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.github.xavierlepretre.library.R;
 import com.github.xavierlepretre.rxdialog.AlertDialogDialogEvent;
 import com.github.xavierlepretre.rxdialog.AlertDialogEvent;
 import java.util.concurrent.CountDownLatch;
@@ -21,6 +23,7 @@ import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -38,6 +41,7 @@ public class RxAlertDialogTest
         Subscription subscription = new RxAlertDialog.Builder(activityRule.getActivity())
                 .title("Attention")
                 .message("Message1")
+                .icon(android.R.drawable.ic_menu_share)
                 .positiveButton("OK")
                 .negativeButton("Cancel")
                 .neutralButton("Later")
@@ -71,6 +75,7 @@ public class RxAlertDialogTest
 
         onView(withText("Attention")).check(matches(isDisplayed()));
         onView(withText("Message1")).check(matches(isDisplayed()));
+        onView(withId(android.R.id.icon)).check(matches(isDisplayed()));
         onView(withText("OK")).check(matches(isDisplayed()));
         onView(withText("Cancel")).check(matches(isDisplayed()));
         onView(withText("Later")).check(matches(isDisplayed()));
