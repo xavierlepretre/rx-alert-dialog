@@ -12,7 +12,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AlertDialogBuilderTest
+public class RxAlertDialogBuilderTest
 {
     private Context context;
     private RxAlertDialogBuilder builder;
