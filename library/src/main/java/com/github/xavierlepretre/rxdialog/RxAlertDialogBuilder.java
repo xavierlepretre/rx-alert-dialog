@@ -2,6 +2,7 @@ package com.github.xavierlepretre.rxdialog;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable @StringRes private Integer messageRes;
     @Nullable @DrawableRes private Integer iconRes;
     @Nullable private Drawable icon;
+    @Nullable @AttrRes private Integer iconAttribute;
     @Nullable private String positiveButton;
     @Nullable @StringRes private Integer positiveButtonRes;
     @Nullable private String negativeButton;
@@ -100,6 +102,17 @@ abstract public class RxAlertDialogBuilder<BuilderType extends RxAlertDialogBuil
     @Nullable public Drawable getIcon()
     {
         return icon;
+    }
+
+    @NonNull public BuilderType iconAttribute(@AttrRes @Nullable Integer iconAttribute)
+    {
+        this.iconAttribute = iconAttribute;
+        return self();
+    }
+
+    @Nullable @AttrRes public Integer getIconAttribute()
+    {
+        return iconAttribute;
     }
 
     @NonNull public BuilderType positiveButton(@Nullable String positiveButton)

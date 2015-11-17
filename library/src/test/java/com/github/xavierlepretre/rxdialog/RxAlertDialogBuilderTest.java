@@ -139,6 +139,16 @@ public class RxAlertDialogBuilderTest
     }
 
     @Test
+    public void setIconAttribute_isOk() throws Exception
+    {
+        builder.iconAttribute(android.R.attr.dial);
+        assertThat(builder.getIconAttribute()).isEqualTo(android.R.attr.dial);
+
+        builder.iconAttribute(null);
+        assertThat(builder.getIconAttribute()).isNull();
+    }
+
+    @Test
     public void setPositiveButtonString_setsString_resRemainsNull() throws Exception
     {
         builder.positiveButton("button1");

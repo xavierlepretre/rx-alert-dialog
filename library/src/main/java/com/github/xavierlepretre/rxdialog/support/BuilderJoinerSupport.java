@@ -1,18 +1,18 @@
 package com.github.xavierlepretre.rxdialog.support;
 
-import com.github.xavierlepretre.rxdialog.BuilderJoiner;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
+
+import com.github.xavierlepretre.rxdialog.BuilderJoiner;
 
 public class BuilderJoinerSupport extends AlertDialog.Builder
         implements BuilderJoiner
@@ -58,6 +58,11 @@ public class BuilderJoinerSupport extends AlertDialog.Builder
     @NonNull @Override public BuilderJoinerSupport setIcon(@Nullable Drawable icon)
     {
         return (BuilderJoinerSupport) super.setIcon(icon);
+    }
+
+    @NonNull @Override public BuilderJoinerSupport setIconAttribute(@AttrRes int iconAttribute)
+    {
+        return (BuilderJoinerSupport) super.setIconAttribute(iconAttribute);
     }
 
     @NonNull @Override

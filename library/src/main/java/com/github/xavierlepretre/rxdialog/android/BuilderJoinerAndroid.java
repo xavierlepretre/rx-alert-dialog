@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,6 +59,11 @@ public class BuilderJoinerAndroid extends AlertDialog.Builder
     @NonNull @Override public BuilderJoinerAndroid setIcon(@Nullable Drawable icon)
     {
         return (BuilderJoinerAndroid) super.setIcon(icon);
+    }
+
+    @NonNull @Override public BuilderJoinerAndroid setIconAttribute(@AttrRes int iconAttribute)
+    {
+        return (BuilderJoinerAndroid) super.setIconAttribute(iconAttribute);
     }
 
     @NonNull @Override
